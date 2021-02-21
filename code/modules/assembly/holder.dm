@@ -94,10 +94,13 @@
 		a_right.dropped()
 
 /obj/item/assembly_holder/attack_hand()//Perhapse this should be a holder_pickup proc instead, can add if needbe I guess
+	message_admins("sloboz")
 	. = ..()
 	if(.)
+		message_admins("holder attack_hand returning due to super return")
 		return
 	if(a_left)
+		message_admins("[a_left]: before attack_hand call")
 		a_left.attack_hand()
 	if(a_right)
 		a_right.attack_hand()

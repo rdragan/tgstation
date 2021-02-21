@@ -345,11 +345,15 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 /obj/item/attack_hand(mob/user)
 	. = ..()
 	if(.)
+		message_admins("[src]: attack_hand . return")
 		return
 	if(!user)
+		message_admins("[src]: attack_hand !user return")
 		return
 	if(anchored)
+		message_admins("[src]: attack_hand anchored return")
 		return
+	message_admins("[src]: attack_hand call")
 
 	. = TRUE
 
@@ -375,6 +379,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 	if(!(interaction_flags_item & INTERACT_ITEM_ATTACK_HAND_PICKUP))		//See if we're supposed to auto pickup.
 		return
+	message_admins("[src]: attack_hand call")
 
 	//Heavy gravity makes picking up things very slow.
 	var/grav = user.has_gravity()
@@ -394,12 +399,16 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 		throwing.finalize(FALSE)
 	if(loc == user)
 		if(!allow_attack_hand_drop(user) || !user.temporarilyRemoveItemFromInventory(src))
+			message_admins("[src]: attack_hand loc == user return")
 			return
+	message_admins("[src]: attack_hand call")
 
 	. = FALSE
 	pickup(user)
 	add_fingerprint(user)
+	message_admins("[src]: before drop")
 	if(!user.put_in_active_hand(src, FALSE, FALSE))
+		message_admins("[src]: drop")
 		user.dropItemToGround(src)
 		return TRUE
 
